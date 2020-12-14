@@ -1,0 +1,26 @@
+@import "../../variables";
+
+
+.heading-flex-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.action-item{
+    margin-left: 50px;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+h1{
+    color: $color_light_text;
+}
