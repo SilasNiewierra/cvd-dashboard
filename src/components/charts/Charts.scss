@@ -1,0 +1,43 @@
+@import "../../variables";
+
+.chart-flex-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.main-chart {
+    height: 100%;
+    border-radius: 25px;
+    background-color: $color_box;
+    flex: 6;
+}
+
+.side-charts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 100%;
+    flex: 3;
+    gap: 10px;
+
+    > .chart-top {
+        width: 100%;
+        border-radius: 15px;
+        background-color: $color_box;
+        flex: 2;
+    }
+
+    > .chart-bottom {
+        width: 100%;
+        border-radius: 15px;
+        background-color: $color_box;
+        flex: 1;
+    }
+}

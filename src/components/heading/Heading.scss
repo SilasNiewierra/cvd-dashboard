@@ -1,11 +1,11 @@
 @import "../../variables";
 
-
 .heading-flex-box{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    height: 100%;
 }
 
 .actions-wrapper{
@@ -24,4 +24,6 @@
 
 h1{
     color: $color_light_text;
+    margin: 0;
+    padding: 0;
 }

@@ -16,10 +16,10 @@ class TopCards extends Component {
             <div class="card-wrapper">
                 {items.map(item =>
                     <div class="card">
-                        { item.icon == "up" &&
+                        { item.icon === "up" &&
                             <ArrowUpSVG height="40" className="icon_up"></ArrowUpSVG>
                         }
-                        { item.icon == "down" &&
+                        { item.icon === "down" &&
                             <ArrowDownSVG height="40" className="icon_down"></ArrowDownSVG>
                         }
                         <div className="content">
