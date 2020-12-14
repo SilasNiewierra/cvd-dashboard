@@ -10,9 +10,9 @@ class Heading extends Component {
             <div className="heading-flex-box">
                 <h1>Dashboard</h1>
                 <div className="actions-wrapper">
-                    <SearchSVG height="25" fill="#7275AA" className="action-item"></SearchSVG>
-                    <BellSVG height="30" fill="#7275AA"className="action-item"></BellSVG>
-                    <UserSVG height="50"className="action-item"></UserSVG>
+                    <SearchSVG height="25" className="action-item"></SearchSVG>
+                    <BellSVG height="30" className="action-item"></BellSVG>
+                    <UserSVG height="50" className="action-item"></UserSVG>
                 </div>
             </div>
         );
