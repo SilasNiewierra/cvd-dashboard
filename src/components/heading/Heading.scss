@@ -1,29 +1,41 @@
 @import "../../variables";
 
-.heading-flex-box{
+.heading-flex-box {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 100%;
+    width: 100%;
+    min-width: $dim_min_width;
+    min-height: $dim_min_height_heading;
 }
 
-.actions-wrapper{
+.actions-wrapper {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.action-item{
+.action-item {
     margin-left: 50px;
-    fill: #7275AA;
-    &:hover{
+    fill: #7275aa;
+    &:hover {
         cursor: pointer;
     }
 }
 
-h1{
+h2 {
     color: $color_light_text;
     margin: 0;
     padding: 0;
+}
+
+@media (max-width: $bp_mobile) {
+    .heading-flex-box {
+        justify-content: center;
+    }
+
+    .actions-wrapper .action-item:nth-child(-n+2){
+        display:none;
+    }
 }

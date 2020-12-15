@@ -1,25 +1,25 @@
 @import "../../variables";
 
-
-
 .flex-box {
-	display:flex; 
+    display: flex;
     flex-direction: column;
-    height: 100%;
     width: 80%;
     max-width: 1920px;
-    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.heading {
-    flex: 1;
-}
 .info-cards {
-    flex: 1;
+    flex: 0.75;
 }
 .analytics {
     flex: 4;
 }
 .pending {
     flex: 2;
+}
+
+@media (max-width: $bp_mobile) {
+    .flex-box {
+        align-items: center;
+    }
 }

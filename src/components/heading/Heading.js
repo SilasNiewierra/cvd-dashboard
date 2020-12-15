@@ -8,11 +8,11 @@ class Heading extends Component {
     render() {
         return (
             <div className="heading-flex-box">
-                <h1>Dashboard</h1>
+                <h2>CVD19 - Dashboard</h2>
                 <div className="actions-wrapper">
-                    <SearchSVG height="25" className="action-item"></SearchSVG>
-                    <BellSVG height="30" className="action-item"></BellSVG>
-                    <UserSVG height="50" className="action-item"></UserSVG>
+                    <SearchSVG height="20" className="action-item"></SearchSVG>
+                    <BellSVG height="25" className="action-item"></BellSVG>
+                    <UserSVG height="40" className="action-item"></UserSVG>
                 </div>
             </div>
         );
