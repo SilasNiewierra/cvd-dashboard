@@ -30,38 +30,50 @@ class Charts extends Component {
                 </div>
                 <div className="side-charts">
                     <div className="chart-top">
-                        <ResponsiveContainer width="50%" height="40%">
-                            <PieChart onMouseEnter={this.onPieEnter}>
-                                <Pie
-                                    data={data}
-                                    innerRadius="80%"
-                                    outerRadius="100%"
-                                    strokeWidth={0}
-                                    fill="#8884d8"
-                                    paddingAngle={5}
-                                    dataKey="uv">
-                                    {
-                                        data.map((entry, index) => <Cell key={`cell-${index}`} fill={'#4676FE'} />)
-                                    }
-                                </Pie>
-                            </PieChart>
-                        </ResponsiveContainer>
-                        <ResponsiveContainer width="50%" height="40%">
-                            <PieChart onMouseEnter={this.onPieEnter}>
-                                <Pie
-                                    data={data}
-                                    innerRadius="80%"
-                                    outerRadius="100%"
-                                    strokeWidth={0}
-                                    fill="#8884d8"
-                                    paddingAngle={5}
-                                    dataKey="pv">
-                                    {
-                                        data.map((entry, index) => <Cell key={`cell-${index}`} fill={'#FB8056'} />)
-                                    }
-                                </Pie>
-                            </PieChart>
-                        </ResponsiveContainer>
+                        <div className="chart-top-content">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <PieChart onMouseEnter={this.onPieEnter}>
+                                    <Pie
+                                        data={data}
+                                        innerRadius="80%"
+                                        outerRadius="100%"
+                                        strokeWidth={0}
+                                        fill="#8884d8"
+                                        paddingAngle={5}
+                                        dataKey="uv">
+                                        {
+                                            data.map((entry, index) => <Cell key={`cell-${index}`} fill={'#4676FE'} />)
+                                        }
+                                    </Pie>
+                                </PieChart>
+                            </ResponsiveContainer>
+                            <div className="content">
+                                <h2 className="title">25%</h2>
+                                <p className="info">Less Infections today</p>
+                            </div>
+                        </div>
+                        <div className="chart-top-content">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <PieChart onMouseEnter={this.onPieEnter}>
+                                    <Pie
+                                        data={data}
+                                        innerRadius="80%"
+                                        outerRadius="100%"
+                                        strokeWidth={0}
+                                        fill="#8884d8"
+                                        paddingAngle={5}
+                                        dataKey="pv">
+                                        {
+                                            data.map((entry, index) => <Cell key={`cell-${index}`} fill={'#FB8056'} />)
+                                        }
+                                    </Pie>
+                                </PieChart>
+                            </ResponsiveContainer>
+                            <div className="content">
+                                <h2 className="title">82%</h2>
+                                <p className="info">More Infections then last week</p>
+                            </div>
+                        </div>
 
 
 
