@@ -7,13 +7,28 @@ import News from './../news/News';
 
 class Main extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            slug: "germany"
+        }
+    }
+
+
+
+    handleCountrySelection = (selectedSlug) => {
+        this.setState({
+            slug: selectedSlug,
+        })
+      }
+
     render() {
         return (
-            <div class="flex-box">
-                <div class="heading"><Heading></Heading></div>
-                <div class="info-cards"><TopCards></TopCards></div>
-                <div class="analytics"><Charts></Charts></div>
-                <div class="pending"><News></News></div>
+            <div className="flex-box">
+                <div className="heading"><Heading country={this.state.slug} handler={this.handleCountrySelection}></Heading></div>
+                <div className="info-cards"><TopCards></TopCards></div>
+                <div className="analytics"><Charts></Charts></div>
+                <div className="pending"><News></News></div>
             </div>
         );
     }

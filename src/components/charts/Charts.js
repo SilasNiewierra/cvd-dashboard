@@ -11,10 +11,11 @@ class Charts extends Component {
             { name: 'Page B', uv: 500, pv: 2000, amt: 2100 },
             { name: 'Page C', uv: 700, pv: 2110, amt: 2200 },
             { name: 'Page D', uv: 200, pv: 3000, amt: 2300 },];
+
         return (
             <div className="chart-flex-wrapper">
                 <div className="main-chart">
-                    <h2> New Infections</h2>
+                    <h2>{this.props.country} - New Infections</h2>
                     <ResponsiveContainer width="90%" height="80%">
 
                         <BarChart data={data}>

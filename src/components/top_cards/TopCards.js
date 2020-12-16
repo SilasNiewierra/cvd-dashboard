@@ -13,9 +13,9 @@ class TopCards extends Component {
             { icon: "down", title: "60%", info: "Budget this year" }];
 
         return (
-            <div class="card-wrapper">
-                {items.map(item =>
-                    <div class="card">
+            <div className="card-wrapper">
+                {items.map((item,index) =>
+                    <div className="card" key={index}>
                         { item.icon === "up" &&
                             <ArrowUpSVG height="40" className="icon_up"></ArrowUpSVG>
                         }
