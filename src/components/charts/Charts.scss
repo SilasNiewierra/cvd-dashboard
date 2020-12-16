@@ -5,13 +5,17 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     min-width: $dim_min_width;
     height: 100%;
     gap: 10px;
-    width: 100%;
 }
 
 .main-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
     min-width: $dim_min_width;
     height: 100%;
     min-height: $dim_min_height;
@@ -30,19 +34,57 @@
     gap: 10px;
 
     > .chart-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
         width: 100%;
-        border-radius: 15px;
         min-height: $dim_min_height;
+        border-radius: 15px;
         background-color: $color_box;
         flex: 2;
+
+        > .chart-top-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            min-height: 100px;
+        }
     }
 
     > .chart-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
         width: 100%;
-        border-radius: 15px;
         min-height: $dim_min_height;
+        border-radius: 15px;
         background-color: $color_box;
         flex: 1;
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 80%;
+
+    > .title {
+        padding: 0;
+        margin: 0;
+        font-size: 25px;
+        color: $color_white;
+    }
+
+    > .info {
+        padding: 0;
+        margin: 0;
+        color: $color_light_text;
     }
 }
 
