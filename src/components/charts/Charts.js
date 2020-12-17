@@ -23,23 +23,37 @@ class Charts extends Component {
         };
     }
 
-    componentDidMount() {
+    fetchData() {
         const apiUrl = 'https://api.covid19api.com/dayone/country/' + this.props.slug;
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
-                let parsedData = data.map((obj) => {
-                    return {
-                        Date: obj['Date'].split('T')[0],
-                        Confirmed: obj['Confirmed'],
-                        Active: obj['Active'],
-                        Deaths: obj['Deaths'],
-                        Recovered: obj['Recovered'],
-                        ConfirmedDeathsRatio: (obj['Deaths'] / obj['Confirmed'] * 100).toFixed(2)
-                    }
-                })
-                this.setState({ chartData: parsedData })
+                if (data !== null) {
+                    console.log(data);
+                    let parsedData = data.map((obj) => {
+                        return {
+                            Date: obj['Date'].split('T')[0],
+                            Confirmed: obj['Confirmed'],
+                            Active: obj['Active'],
+                            Deaths: obj['Deaths'],
+                            Recovered: obj['Recovered'],
+                            ConfirmedDeathsRatio: (obj['Deaths'] / obj['Confirmed'] * 100).toFixed(2)
+                        }
+                    })
+                    this.setState({ chartData: parsedData });
+                }
             });
+    }
+
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.slug !== prevProps.slug) {
+            this.fetchData();
+        }
+      }
+
+    componentDidMount() {
+        this.fetchData()
     }
 
     renderColorfulLegendText(value, entry) {
@@ -177,7 +191,7 @@ class Charts extends Component {
 
                         <div className="content">
                             <h2 className="title">{renderData[renderData.length - 1]['ConfirmedDeathsRatio']} %</h2>
-                            <p className="info">Confirmed vs. Death Ratio</p>
+                            <p className="info">Confirmed to Death Ratio today</p>
                         </div>
 
                     </div>
@@ -186,5 +200,7 @@ class Charts extends Component {
         );
     }
 }
+
+
 
 export default Charts;
