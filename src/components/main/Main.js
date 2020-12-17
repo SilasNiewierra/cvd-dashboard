@@ -25,9 +25,9 @@ class Main extends Component {
     render() {
         return (
             <div className="flex-box">
-                <div className="heading"><Heading country={this.state.slug} handler={this.handleCountrySelection}></Heading></div>
+                <div className="heading"><Heading slug={this.state.slug} handler={this.handleCountrySelection}></Heading></div>
                 <div className="info-cards"><TopCards></TopCards></div>
-                <div className="analytics"><Charts></Charts></div>
+                <div className="analytics"><Charts slug={this.state.slug}></Charts></div>
                 <div className="pending"><News></News></div>
             </div>
         );

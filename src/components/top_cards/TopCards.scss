@@ -20,17 +20,26 @@
     background-color: $color_box;
     flex: 1;
 
-    > .icon_up {
+    > .icon{
         margin-left: 30px;
         margin-right: 30px;
+    }
+
+    > .icon_new {
         fill: $color_blue;
     }
 
-    > .icon_down {
-        margin-left: 30px;
-        margin-right: 30px;
+    > .icon_total {
         fill: $color_pink;
     }
+
+    > .icon_dead {
+        fill: $color_light_orange;
+    }
+    > .icon_recovered {
+        fill: $color_teal;
+    }
+
 
     > .content {
         display: flex;

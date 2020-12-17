@@ -4,7 +4,16 @@ import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, AreaChart, Area, Tool
 
 class Charts extends Component {
 
+    componentDidMount() {
+        const apiUrl = 'https://api.covid19api.com/dayone/country/'+this.props.slug;
+        fetch(apiUrl)
+          .then((response) => response.json())
+          .then((data) => console.log('This is your data', data));
+      }
+
     render() {
+        var countryName = titleCase(this.props.slug.replaceAll('-', " "));
+
         const data = [
             { name: 'Page E', uv: 400, pv: 2400, amt: 2400 },
             { name: 'Page A', uv: 100, pv: 2200, amt: 2000 },
@@ -15,7 +24,7 @@ class Charts extends Component {
         return (
             <div className="chart-flex-wrapper">
                 <div className="main-chart">
-                    <h2>{this.props.country} - New Infections</h2>
+                    <h2>{countryName} - New Infections</h2>
                     <ResponsiveContainer width="90%" height="80%">
 
                         <BarChart data={data}>
@@ -106,4 +115,18 @@ class Charts extends Component {
         );
     }
 }
+
+
+function titleCase(str) {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+        // You do not need to check if i is larger than splitStr length, as your for does that for you
+        // Assign it back to the array
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+    }
+    // Directly return the joined string
+    return splitStr.join(' '); 
+ }
+
+
 export default Charts;
