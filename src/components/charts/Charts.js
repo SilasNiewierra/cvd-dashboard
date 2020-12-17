@@ -1,87 +1,156 @@
 import { Component } from 'react';
 import './Charts.scss';
-import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, AreaChart, Area, Tooltip, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
+import { ReactComponent as ArrowUpSVG } from '../../assets/icons/arrow_up.svg';
+import { ReactComponent as ArrowDownSVG } from '../../assets/icons/arrow_down.svg';
+import DataFormatter from '../../providers/DataFormatter.js';
+import {
+    ResponsiveContainer,
+    CartesianGrid,
+    XAxis,
+    YAxis,
+    AreaChart,
+    Area,
+    Tooltip,
+    Legend,
+    ComposedChart
+} from 'recharts';
 
 class Charts extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            chartData: null
+        };
+    }
 
     componentDidMount() {
-        const apiUrl = 'https://api.covid19api.com/dayone/country/'+this.props.slug;
+        const apiUrl = 'https://api.covid19api.com/dayone/country/' + this.props.slug;
         fetch(apiUrl)
-          .then((response) => response.json())
-          .then((data) => console.log('This is your data', data));
-      }
+            .then((response) => response.json())
+            .then((data) => {
+                let parsedData = data.map((obj) => {
+                    return {
+                        Date: obj['Date'].split('T')[0],
+                        Confirmed: obj['Confirmed'],
+                        Active: obj['Active'],
+                        Deaths: obj['Deaths'],
+                        Recovered: obj['Recovered'],
+                        ConfirmedDeathsRatio: (obj['Deaths'] / obj['Confirmed'] * 100).toFixed(2)
+                    }
+                })
+                this.setState({ chartData: parsedData })
+            });
+    }
+
+    renderColorfulLegendText(value, entry) {
+        const { color } = entry;
+
+        return <span style={{ color }}>{value}</span>;
+    }
+
+
 
     render() {
-        var countryName = titleCase(this.props.slug.replaceAll('-', " "));
+        const dataFormatter = new DataFormatter();
 
-        const data = [
-            { name: 'Page E', uv: 400, pv: 2400, amt: 2400 },
-            { name: 'Page A', uv: 100, pv: 2200, amt: 2000 },
-            { name: 'Page B', uv: 500, pv: 2000, amt: 2100 },
-            { name: 'Page C', uv: 700, pv: 2110, amt: 2200 },
-            { name: 'Page D', uv: 200, pv: 3000, amt: 2300 },];
+        var countryName = dataFormatter.titleCase(this.props.slug.replaceAll('-', " "));
+
+        const placeholderData = [
+            { Date: "2020-12-10", Active: 1, Confirmed: 1, Deaths: 0, Recovered: 0 },
+            { Date: "2020-12-11", Active: 2, Confirmed: 2, Deaths: 0, Recovered: 0 },
+            { Date: "2020-12-12", Active: 6, Confirmed: 10, Deaths: 1, Recovered: 3 },
+            { Date: "2020-12-13", Active: 3, Confirmed: 10, Deaths: 1, Recovered: 6 },
+            { Date: "2020-12-14", Active: 5, Confirmed: 15, Deaths: 3, Recovered: 7 },
+            { Date: "2020-12-15", Active: 4, Confirmed: 20, Deaths: 4, Recovered: 12 }];
+
+        var renderData = this.state.chartData === null ? placeholderData : this.state.chartData;
+
+
+        let previousActiveCases = renderData[renderData.length - 2]['Active'];
+        let currentActiveCases = renderData[renderData.length - 1]['Active'];
+        let percentageActive = (currentActiveCases - previousActiveCases) / previousActiveCases * 100;
+
+        var activeCaseObject = {
+            icon: previousActiveCases > currentActiveCases ? <ArrowDownSVG height="40" className="icon icon_down"></ArrowDownSVG> : <ArrowUpSVG height="40" className="icon icon_up"></ArrowUpSVG>,
+            data: percentageActive.toFixed(2),
+            text: previousActiveCases > currentActiveCases ? "Less active cases then yesterday" : "More active cases then yesterday"
+        }
+
+        let previousConfirmedDeathsRatio = renderData[renderData.length - 2]['ConfirmedDeathsRatio'];
+        let currentConfirmedDeathsRatio = renderData[renderData.length - 1]['ConfirmedDeathsRatio'];
+        let currentDeaths = renderData[renderData.length - 1]['Deaths'];
+        let currentConfirmed = renderData[renderData.length - 1]['Confirmed'];
+
+        var confirmedDeathsRatio = {
+            icon: previousConfirmedDeathsRatio > currentConfirmedDeathsRatio ? <ArrowDownSVG height="40" className="icon icon_down"></ArrowDownSVG> : <ArrowUpSVG height="40" className="icon icon_up"></ArrowUpSVG>,
+            data: dataFormatter.numberWithSeperator(currentDeaths) + " / " + dataFormatter.numberWithSeperator(currentConfirmed),
+            text: previousConfirmedDeathsRatio > currentConfirmedDeathsRatio ? "Less deaths per confirmed case then yesterday" : "More deaths per confirmed case then yesterday"
+        }
+
 
         return (
             <div className="chart-flex-wrapper">
                 <div className="main-chart">
-                    <h2>{countryName} - New Infections</h2>
+                    <h2>{countryName} - Total Statistics</h2>
                     <ResponsiveContainer width="90%" height="80%">
 
-                        <BarChart data={data}>
-                            <CartesianGrid stroke="#7275AA" strokeWidth={2} vertical={false} strokeDasharray="5 5" />
-                            <XAxis dataKey="name" strokeDasharray="5 5" stroke="#7275AA" strokeWidth={2} />
-                            <YAxis axisLine={false} stroke="#7275AA" strokeWidth={2} />
 
-                            <Bar dataKey="uv" stackId="x" fill="#06CBFF" radius={[0, 0, 10, 10]} barSize={20}></Bar>
-                            <Bar dataKey="pv" stackId="x" fill="#4676FE"></Bar>
-                            <Bar dataKey="amt" stackId="x" fill="#0E9BC8" radius={[10, 10, 0, 0]}></Bar>
-                        </BarChart>
+                        <ComposedChart data={renderData}>
+                            <defs>
+                                <linearGradient id="colorGradientConfirmed" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor="hotpink" stopOpacity={0.8} />
+                                    <stop offset="95%" stopColor="hotpink" stopOpacity={0} />
+                                </linearGradient>
+                            </defs>
+                            <defs>
+                                <linearGradient id="colorGradientActive" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor="#06CBFF" stopOpacity={0.8} />
+                                    <stop offset="95%" stopColor="#06CBFF" stopOpacity={0} />
+                                </linearGradient>
+                            </defs>
+                            <defs>
+                                <linearGradient id="colorGradientDeaths" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor="#4676FE" stopOpacity={0.8} />
+                                    <stop offset="95%" stopColor="#4676FE" stopOpacity={0} />
+                                </linearGradient>
+                            </defs>
+                            <defs>
+                                <linearGradient id="colorGradientRecovered" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor="#7C43DE" stopOpacity={0.8} />
+                                    <stop offset="95%" stopColor="#7C43DE" stopOpacity={0} />
+                                </linearGradient>
+                            </defs>
+
+                            <XAxis axisLine={false} dataKey="Date" stroke="#7275AA" minTickGap={20} />
+                            <YAxis axisLine={false} stroke="#7275AA" strokeWidth={2} />
+                            <Tooltip />
+                            <Legend verticalAlign="top" height={36} formatter={this.renderColorfulLegendText} />
+                            <CartesianGrid stroke="#7275AA" strokeWidth={2} vertical={false} strokeDasharray="5 5" />
+
+                            <Area type="monotone" dataKey="Confirmed" stroke="hotpink" fillOpacity={0.5} fill="url(#colorGradientConfirmed)" strokeOpacity={0.5} strokeWidth={3} />
+
+                            <Area type="monotone" dataKey="Active" stroke="#06CBFF" fillOpacity={0.5} fill="url(#colorGradientActive)" strokeOpacity={0.5} strokeWidth={3} />
+                            <Area type="monotone" dataKey="Deaths" stroke="#4676FE" fillOpacity={0.5} fill="url(#colorGradientDeaths)" strokeOpacity={0.5} strokeWidth={3} />
+                            <Area type="monotone" dataKey="Recovered" stroke="#7C43DE" fillOpacity={0.5} fill="url(#colorGradientRecovered)" strokeOpacity={0.5} strokeWidth={3} />
+                        </ComposedChart>
+
+
                     </ResponsiveContainer>
                 </div>
                 <div className="side-charts">
                     <div className="chart-top">
                         <div className="chart-top-content">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <PieChart onMouseEnter={this.onPieEnter}>
-                                    <Pie
-                                        data={data}
-                                        innerRadius="80%"
-                                        outerRadius="100%"
-                                        strokeWidth={0}
-                                        fill="#8884d8"
-                                        paddingAngle={5}
-                                        dataKey="uv">
-                                        {
-                                            data.map((entry, index) => <Cell key={`cell-${index}`} fill={'#4676FE'} />)
-                                        }
-                                    </Pie>
-                                </PieChart>
-                            </ResponsiveContainer>
+                            {activeCaseObject.icon}
                             <div className="content">
-                                <h2 className="title">25%</h2>
-                                <p className="info">Less Infections today</p>
+                                <h2 className="title">{activeCaseObject.data}%</h2>
+                                <p className="info">{activeCaseObject.text}</p>
                             </div>
                         </div>
                         <div className="chart-top-content">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <PieChart onMouseEnter={this.onPieEnter}>
-                                    <Pie
-                                        data={data}
-                                        innerRadius="80%"
-                                        outerRadius="100%"
-                                        strokeWidth={0}
-                                        fill="#8884d8"
-                                        paddingAngle={5}
-                                        dataKey="pv">
-                                        {
-                                            data.map((entry, index) => <Cell key={`cell-${index}`} fill={'#FB8056'} />)
-                                        }
-                                    </Pie>
-                                </PieChart>
-                            </ResponsiveContainer>
+                            {confirmedDeathsRatio.icon}
                             <div className="content">
-                                <h2 className="title">82%</h2>
-                                <p className="info">More Infections then last week</p>
+                                <h2 className="title">{confirmedDeathsRatio.data}</h2>
+                                <p className="info">{confirmedDeathsRatio.text}</p>
                             </div>
                         </div>
 
@@ -91,7 +160,7 @@ class Charts extends Component {
                     <div className="chart-bottom">
                         <ResponsiveContainer width="80%" height="40%">
 
-                            <AreaChart data={data}>
+                            <AreaChart data={renderData}>
                                 <defs>
                                     <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="5%" stopColor="#4676FE" stopOpacity={0.8} />
@@ -99,14 +168,16 @@ class Charts extends Component {
                                     </linearGradient>
                                 </defs>
                                 <Tooltip />
-                                <Area type="monotone" dataKey="uv" stroke="#4676FE" fillOpacity={1} fill="url(#colorUv)" strokeWidth={3} />
+                                <XAxis dataKey="Date" hide={true} />
+
+                                <Area type="monotone" dataKey="ConfirmedDeathsRatio" stroke="#4676FE" fillOpacity={1} fill="url(#colorUv)" strokeWidth={3} />
                             </AreaChart>
 
                         </ResponsiveContainer>
 
                         <div className="content">
-                            <h2 className="title">9123</h2>
-                            <p className="info">New Infections each day</p>
+                            <h2 className="title">{renderData[renderData.length - 1]['ConfirmedDeathsRatio']} %</h2>
+                            <p className="info">Confirmed vs. Death Ratio</p>
                         </div>
 
                     </div>
@@ -115,18 +186,5 @@ class Charts extends Component {
         );
     }
 }
-
-
-function titleCase(str) {
-    var splitStr = str.toLowerCase().split(' ');
-    for (var i = 0; i < splitStr.length; i++) {
-        // You do not need to check if i is larger than splitStr length, as your for does that for you
-        // Assign it back to the array
-        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
-    }
-    // Directly return the joined string
-    return splitStr.join(' '); 
- }
-
 
 export default Charts;
