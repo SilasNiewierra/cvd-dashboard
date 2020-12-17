@@ -39,8 +39,8 @@ class Heading extends Component {
             <div className="heading-flex-box">
                 <h2>CVD19 - Dashboard</h2>
                 <div className="actions-wrapper">
-                    <SearchSVG height="20" className="action-item"></SearchSVG>
-                    <BellSVG height="25" className="action-item" ></BellSVG>
+                    {/* <SearchSVG height="20" className="action-item"></SearchSVG>
+                    <BellSVG height="25" className="action-item" ></BellSVG> */}
                     <UserSVG height="40" className="action-item" onClick={this.openDialog}></UserSVG>
                     <SimpleDialog open={this.state.open} closeDialogHandler={this.closeDialog} slug={this.props.slug} ></SimpleDialog>
                 </div>
