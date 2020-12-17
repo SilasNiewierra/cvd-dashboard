@@ -29,7 +29,6 @@ class Charts extends Component {
             .then((response) => response.json())
             .then((data) => {
                 if (data !== null) {
-                    console.log(data);
                     let parsedData = data.map((obj) => {
                         return {
                             Date: obj['Date'].split('T')[0],

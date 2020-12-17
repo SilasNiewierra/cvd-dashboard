@@ -47,13 +47,14 @@ class TopCards extends Component {
             { icon: <RecoveredSVG height="40" className="icon icon_recovered"></RecoveredSVG>, title: 230845, info: "Total Recovered" }];
 
         var renderData = this.state.cvdData !== null ? this.state.cvdData : placeholderItems;
+
         return (
             <div className="card-wrapper">
                 {renderData.map((item, index) =>
                     <div className="card" key={index}>
                         {item.icon}
                         <div className="content">
-                            <h2 className="title">{dataFormatter.numberWithSeperator(item.title)}</h2>
+                            <p className="title">{dataFormatter.numberWithSeperator(item.title)}</p>
                             <p className="info">{item.info}</p>
                         </div>
                     </div>
