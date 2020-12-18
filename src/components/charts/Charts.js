@@ -28,7 +28,8 @@ class Charts extends Component {
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
-                if (data !== null) {
+                if (data !== null && data.length > 0) {
+                    // console.log(data);
                     let parsedData = data.map((obj) => {
                         return {
                             Date: obj['Date'].split('T')[0],
@@ -40,6 +41,10 @@ class Charts extends Component {
                         }
                     })
                     this.setState({ chartData: parsedData });
+                }
+                else{
+                    this.setState({ chartData: null });
+                    alert("Unfortunately there are no data available for the selected country. The graphs are filled with dummy data to showcase how this application can look.");
                 }
             });
     }
@@ -69,12 +74,12 @@ class Charts extends Component {
         var countryName = dataFormatter.titleCase(this.props.slug.replaceAll('-', " "));
 
         const placeholderData = [
-            { Date: "2020-12-10", Active: 1, Confirmed: 1, Deaths: 0, Recovered: 0 },
-            { Date: "2020-12-11", Active: 2, Confirmed: 2, Deaths: 0, Recovered: 0 },
-            { Date: "2020-12-12", Active: 6, Confirmed: 10, Deaths: 1, Recovered: 3 },
-            { Date: "2020-12-13", Active: 3, Confirmed: 10, Deaths: 1, Recovered: 6 },
-            { Date: "2020-12-14", Active: 5, Confirmed: 15, Deaths: 3, Recovered: 7 },
-            { Date: "2020-12-15", Active: 4, Confirmed: 20, Deaths: 4, Recovered: 12 }];
+            { Date: "2020-12-10", Active: 1, Confirmed: 1, Deaths: 0, Recovered: 0, ConfirmedDeathsRatio: 0},
+            { Date: "2020-12-11", Active: 2, Confirmed: 2, Deaths: 0, Recovered: 0, ConfirmedDeathsRatio: 0},
+            { Date: "2020-12-12", Active: 6, Confirmed: 10, Deaths: 1, Recovered: 3, ConfirmedDeathsRatio: (1 / 6 * 100).toFixed(2) },
+            { Date: "2020-12-13", Active: 3, Confirmed: 10, Deaths: 1, Recovered: 6, ConfirmedDeathsRatio: (1 / 10 * 100).toFixed(2) },
+            { Date: "2020-12-14", Active: 5, Confirmed: 15, Deaths: 3, Recovered: 7, ConfirmedDeathsRatio: (3 / 15 * 100).toFixed(2) },
+            { Date: "2020-12-15", Active: 4, Confirmed: 20, Deaths: 4, Recovered: 12, ConfirmedDeathsRatio: (4 / 20 * 100).toFixed(2) }];
 
         var renderData = this.state.chartData === null ? placeholderData : this.state.chartData;
 

@@ -28,7 +28,7 @@ class Main extends Component {
                 <div className="heading"><Heading slug={this.state.slug} handler={this.handleCountrySelection}></Heading></div>
                 <div className="info-cards"><TopCards></TopCards></div>
                 <div className="analytics"><Charts slug={this.state.slug}></Charts></div>
-                <div className="pending"><News></News></div>
+                <div className="news"><News></News></div>
             </div>
         );
     }
