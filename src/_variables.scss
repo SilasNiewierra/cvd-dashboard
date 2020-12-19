@@ -1,4 +1,5 @@
 
+// colors
 $color_dark_bg: #202344;
 $color_light_bg: #25274D;
 $color_box: #2D315E;
@@ -8,3 +9,18 @@ $color_light_blue: #06CBFF;
 $color_teal: #0E9BC8;
 $color_light_orange: #FB8056;
 $color_purple: #7C43DE;
+$color_pink: #ff69b4;
+$color_white: white;
+
+// dimensions
+$dim_min_width: 300px;
+$dim_min_width_dialog: 250px;
+$dim_min_height: 200px;
+$dim_min_height_heading: 50px;
+$dim_min_height_top_card: 100px;
+$dim_min_height_chart: 350px;
+$dim_gap: 20px;
+
+// breakpoints
+$bp_tablet: 900px;
+$bp_mobile: 700px;

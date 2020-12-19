@@ -1,0 +1,29 @@
+@import "../../variables";
+
+.card-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: space-between;
+    height: 100%;
+    gap: $dim_gap;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: $dim_min_width;
+    min-height: $dim_min_height_top_card;
+    border-radius: 15px;
+    background-color: $color_box;
+    flex: 1;
+}
+
+@media (max-width: $bp_mobile) {
+    .card-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+}

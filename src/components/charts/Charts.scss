@@ -1,0 +1,95 @@
+@import "../../variables";
+
+.chart-flex-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-width: $dim_min_width;
+    height: 100%;
+    gap: 10px;
+}
+
+.main-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    min-width: $dim_min_width;
+    height: 100%;
+    min-height: $dim_min_height_chart;
+    border-radius: 25px;
+    background-color: $color_box;
+    flex: 6;
+}
+
+.side-charts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 100%;
+    flex: 3;
+    gap: 10px;
+
+    > .chart-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        min-height: $dim_min_height;
+        border-radius: 15px;
+        background-color: $color_box;
+        flex: 2;
+
+        > .chart-top-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            min-height: 100px;
+        }
+    }
+
+    > .chart-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        min-height: $dim_min_height;
+        border-radius: 15px;
+        background-color: $color_box;
+        flex: 1;
+    }
+}
+
+.content {
+    width: 80%;
+}
+
+@media (max-width: $bp_mobile) {
+    .chart-flex-wrapper {
+        flex-direction: column;
+        width: 100%;
+    }
+    .main-chart {
+        width: 100%;
+    }
+    .side-charts {
+        width: 100%;
+        min-width: $dim_min_width;
+    }
+
+    .chart-top-content{
+        flex-direction: column !important;
+        padding-bottom: 20px;
+    }
+    .icon{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}

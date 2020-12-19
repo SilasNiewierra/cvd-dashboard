@@ -1,34 +1,25 @@
 @import "../../variables";
 
 .flex-box {
-	display:flex; 
+    display: flex;
     flex-direction: column;
-    background-color: green;
-    height: 100%;
-}
-.flex-box > div {
-	display: flex;
-	flex-direction: column;
-	align-items:center;
+    width: 80%;
+    max-width: 1920px;
+    gap: 10px;
 }
 
-.heading {
-    flex: 2;
-    background-color: $color_light_orange;
-    content: "";
-}
-.cards {
-    flex: 2;
-    background-color: $color_box;
-    content: "";
+.info-cards {
+    flex: 0.75;
 }
 .analytics {
-    flex: 8;
-    content: "";
-    background-color: red;
+    flex: 4;
 }
-.pending {
-    flex: 3;
-    content: "";
-    background-color: $color_box;
+.news {
+    flex: 2;
+}
+
+@media (max-width: $bp_mobile) {
+    .flex-box {
+        align-items: center;
+    }
 }
