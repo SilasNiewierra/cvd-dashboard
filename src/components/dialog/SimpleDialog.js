@@ -14,27 +14,13 @@ import Select from '@material-ui/core/Select';
 
 export default function AlertDialog(props) {
 
-    const [appState, setAppState] = React.useState({
-        items: null,
-    });
-
     const [slug, setSlug] = React.useState('');
 
     const handleChange = (event) => {
         setSlug(event.target.value);
     };
 
-
-    React.useEffect(() => {
-        fetch("https://api.covid19api.com/countries")
-            .then(resp => resp.json())
-            .then((data) => {
-                data.sort(function (a, b) {
-                    return compareStrings(a.Slug, b.Slug);
-                })
-                setAppState({ items: data })
-            })
-    }, [setAppState]);
+    const renderData = props.countries;
 
     return (
         <div>
@@ -47,19 +33,19 @@ export default function AlertDialog(props) {
                 <DialogContent>
                     <FormControl>
                         <InputLabel id="demo-simple-select-label" >Country</InputLabel>
-                        {appState.items != null && <Select
+                        {renderData != null && <Select
                             className="simple-dialog"
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={slug}
                             onChange={handleChange}>
 
-                            {appState.items.map(item =>
+                            {renderData.map(item =>
                                 <MenuItem value={item.Slug} key={item.Slug}>{item.Country}</MenuItem>
                             )}
                         </Select>
                         }{
-                            appState.items == null &&
+                            renderData == null &&
                             <div>Currently fetching all available countries</div>
                         }
                     </FormControl>
@@ -77,12 +63,5 @@ export default function AlertDialog(props) {
     );
 }
 
-function compareStrings(a, b) {
-    // Assuming you want case-insensitive comparison
-    a = a.toLowerCase();
-    b = b.toLowerCase();
-
-    return (a < b) ? -1 : (a > b) ? 1 : 0;
-}
 
 
