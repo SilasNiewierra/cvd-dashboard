@@ -25,10 +25,10 @@ class TopCards extends Component {
                 if (data !== null) {
                     data = data['Global'];
                     const dataMap = [
-                        { icon: <NewCasesSVG height="40" className="icon icon_new"></NewCasesSVG>, title: data['NewConfirmed'], info: "New Confirmed" },
-                        { icon: <TotalCasesSVG height="40" className="icon icon_total"></TotalCasesSVG>, title: data['TotalConfirmed'], info: "Total Confirmed" },
-                        { icon: <DeadSVG height="40" className="icon icon_dead"></DeadSVG>, title: data['TotalDeaths'], info: "Total Deaths" },
-                        { icon: <RecoveredSVG height="40" className="icon icon_recovered"></RecoveredSVG>, title: data['TotalRecovered'], info: "Total Recovered" }];
+                        { icon: <NewCasesSVG height="40" className="icon icon_new"></NewCasesSVG>, title: data['NewConfirmed'], info: "New Confirmed Globally" },
+                        { icon: <TotalCasesSVG height="40" className="icon icon_total"></TotalCasesSVG>, title: data['TotalConfirmed'], info: "Total Confirmed Globally" },
+                        { icon: <DeadSVG height="40" className="icon icon_dead"></DeadSVG>, title: data['TotalDeaths'], info: "Total Deaths Globally" },
+                        { icon: <RecoveredSVG height="40" className="icon icon_recovered"></RecoveredSVG>, title: data['TotalRecovered'], info: "Total Recovered Globally" }];
 
                     this.setState({ cvdData: dataMap });
                 }
