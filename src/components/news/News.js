@@ -17,7 +17,6 @@ class News extends Component {
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 if (data !== null && data['status'] !== "error") {
                     let articles = data['articles'];
                     if (articles !== null && articles.length > 0) {

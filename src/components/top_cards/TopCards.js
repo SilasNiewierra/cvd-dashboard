@@ -21,9 +21,8 @@ class TopCards extends Component {
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
+                console.log(data);
                 if (data !== null) {
-
-
                     data = data['Global'];
                     const dataMap = [
                         { icon: <NewCasesSVG height="40" className="icon icon_new"></NewCasesSVG>, title: data['NewConfirmed'], info: "New Confirmed" },
