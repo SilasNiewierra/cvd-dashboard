@@ -12,11 +12,12 @@ class News extends Component {
     }
 
     fetchData() {
-        const apiUrl = 'https://newsapi.org/v2/top-headlines?q=covid&apiKey=921e286901814d6ab64bc33ae07101de&pageSize=2&sources=bbc-news';
+        const apiUrl = 'https://cvd-dashboard-backend.herokuapp.com/news';
 
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
+                console.log(data);
                 if (data !== null && data['status'] !== "error") {
                     let articles = data['articles'];
                     if (articles !== null && articles.length > 0) {
