@@ -24,18 +24,12 @@
     }
 }
 
-h2 {
-    color: $color_light_text;
-    margin: 0;
-    padding: 0;
-}
-
 @media (max-width: $bp_mobile) {
     .heading-flex-box {
         justify-content: center;
     }
 
-    .actions-wrapper .action-item:nth-child(-n+2){
-        display:none;
-    }
+    // .actions-wrapper .action-item:nth-child(-n+2){
+    //     display:none;
+    // }
 }

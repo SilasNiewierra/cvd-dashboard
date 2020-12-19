@@ -28,8 +28,8 @@ class Charts extends Component {
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
-                if (data !== null) {
-                    console.log(data);
+                if (data !== null && data.length > 0) {
+                    // console.log(data);
                     let parsedData = data.map((obj) => {
                         return {
                             Date: obj['Date'].split('T')[0],
@@ -41,6 +41,10 @@ class Charts extends Component {
                         }
                     })
                     this.setState({ chartData: parsedData });
+                }
+                else{
+                    this.setState({ chartData: null });
+                    alert("Unfortunately there are no data available for the selected country. The graphs are filled with dummy data to showcase how this application can look.");
                 }
             });
     }
@@ -70,12 +74,12 @@ class Charts extends Component {
         var countryName = dataFormatter.titleCase(this.props.slug.replaceAll('-', " "));
 
         const placeholderData = [
-            { Date: "2020-12-10", Active: 1, Confirmed: 1, Deaths: 0, Recovered: 0 },
-            { Date: "2020-12-11", Active: 2, Confirmed: 2, Deaths: 0, Recovered: 0 },
-            { Date: "2020-12-12", Active: 6, Confirmed: 10, Deaths: 1, Recovered: 3 },
-            { Date: "2020-12-13", Active: 3, Confirmed: 10, Deaths: 1, Recovered: 6 },
-            { Date: "2020-12-14", Active: 5, Confirmed: 15, Deaths: 3, Recovered: 7 },
-            { Date: "2020-12-15", Active: 4, Confirmed: 20, Deaths: 4, Recovered: 12 }];
+            { Date: "2020-12-10", Active: 1, Confirmed: 1, Deaths: 0, Recovered: 0, ConfirmedDeathsRatio: 0},
+            { Date: "2020-12-11", Active: 2, Confirmed: 2, Deaths: 0, Recovered: 0, ConfirmedDeathsRatio: 0},
+            { Date: "2020-12-12", Active: 6, Confirmed: 10, Deaths: 1, Recovered: 3, ConfirmedDeathsRatio: (1 / 6 * 100).toFixed(2) },
+            { Date: "2020-12-13", Active: 3, Confirmed: 10, Deaths: 1, Recovered: 6, ConfirmedDeathsRatio: (1 / 10 * 100).toFixed(2) },
+            { Date: "2020-12-14", Active: 5, Confirmed: 15, Deaths: 3, Recovered: 7, ConfirmedDeathsRatio: (3 / 15 * 100).toFixed(2) },
+            { Date: "2020-12-15", Active: 4, Confirmed: 20, Deaths: 4, Recovered: 12, ConfirmedDeathsRatio: (4 / 20 * 100).toFixed(2) }];
 
         var renderData = this.state.chartData === null ? placeholderData : this.state.chartData;
 
@@ -87,7 +91,7 @@ class Charts extends Component {
         var activeCaseObject = {
             icon: previousActiveCases > currentActiveCases ? <ArrowDownSVG height="40" className="icon icon_down"></ArrowDownSVG> : <ArrowUpSVG height="40" className="icon icon_up"></ArrowUpSVG>,
             data: percentageActive.toFixed(2),
-            text: previousActiveCases > currentActiveCases ? "Less active cases then yesterday" : "More active cases then yesterday"
+            text: previousActiveCases > currentActiveCases ? "Less Active Cases Then Yesterday" : "More Active Cases Then Yesterday"
         }
 
         let previousConfirmedDeathsRatio = renderData[renderData.length - 2]['ConfirmedDeathsRatio'];
@@ -98,7 +102,7 @@ class Charts extends Component {
         var confirmedDeathsRatio = {
             icon: previousConfirmedDeathsRatio > currentConfirmedDeathsRatio ? <ArrowDownSVG height="40" className="icon icon_down"></ArrowDownSVG> : <ArrowUpSVG height="40" className="icon icon_up"></ArrowUpSVG>,
             data: dataFormatter.numberWithSeperator(currentDeaths) + " / " + dataFormatter.numberWithSeperator(currentConfirmed),
-            text: previousConfirmedDeathsRatio > currentConfirmedDeathsRatio ? "Less deaths per confirmed case then yesterday" : "More deaths per confirmed case then yesterday"
+            text: previousConfirmedDeathsRatio > currentConfirmedDeathsRatio ? "Less Deaths Per Confirmed Case Then Yesterday" : "More Deaths Per Confirmed Case Then Yesterday"
         }
 
 
@@ -118,20 +122,20 @@ class Charts extends Component {
                             </defs>
                             <defs>
                                 <linearGradient id="colorGradientActive" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#06CBFF" stopOpacity={0.8} />
-                                    <stop offset="95%" stopColor="#06CBFF" stopOpacity={0} />
+                                    <stop offset="5%" stopColor="#7C43DE" stopOpacity={0.8} />
+                                    <stop offset="95%" stopColor="#7C43DE" stopOpacity={0} />
                                 </linearGradient>
                             </defs>
                             <defs>
                                 <linearGradient id="colorGradientDeaths" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#4676FE" stopOpacity={0.8} />
-                                    <stop offset="95%" stopColor="#4676FE" stopOpacity={0} />
+                                    <stop offset="5%" stopColor="#FB8056" stopOpacity={0.8} />
+                                    <stop offset="95%" stopColor="#FB8056" stopOpacity={0} />
                                 </linearGradient>
                             </defs>
                             <defs>
                                 <linearGradient id="colorGradientRecovered" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#7C43DE" stopOpacity={0.8} />
-                                    <stop offset="95%" stopColor="#7C43DE" stopOpacity={0} />
+                                    <stop offset="5%" stopColor="#0E9BC8" stopOpacity={0.8} />
+                                    <stop offset="95%" stopColor="#0E9BC8" stopOpacity={0} />
                                 </linearGradient>
                             </defs>
 
@@ -143,9 +147,9 @@ class Charts extends Component {
 
                             <Area type="monotone" dataKey="Confirmed" stroke="hotpink" fillOpacity={0.5} fill="url(#colorGradientConfirmed)" strokeOpacity={0.5} strokeWidth={3} />
 
-                            <Area type="monotone" dataKey="Active" stroke="#06CBFF" fillOpacity={0.5} fill="url(#colorGradientActive)" strokeOpacity={0.5} strokeWidth={3} />
-                            <Area type="monotone" dataKey="Deaths" stroke="#4676FE" fillOpacity={0.5} fill="url(#colorGradientDeaths)" strokeOpacity={0.5} strokeWidth={3} />
-                            <Area type="monotone" dataKey="Recovered" stroke="#7C43DE" fillOpacity={0.5} fill="url(#colorGradientRecovered)" strokeOpacity={0.5} strokeWidth={3} />
+                            <Area type="monotone" dataKey="Active" stroke="#7C43DE" fillOpacity={0.5} fill="url(#colorGradientActive)" strokeOpacity={0.5} strokeWidth={3} />
+                            <Area type="monotone" dataKey="Deaths" stroke="#FB8056" fillOpacity={0.5} fill="url(#colorGradientDeaths)" strokeOpacity={0.5} strokeWidth={3} />
+                            <Area type="monotone" dataKey="Recovered" stroke="#0E9BC8" fillOpacity={0.5} fill="url(#colorGradientRecovered)" strokeOpacity={0.5} strokeWidth={3} />
                         </ComposedChart>
 
 
@@ -164,7 +168,7 @@ class Charts extends Component {
                             {confirmedDeathsRatio.icon}
                             <div className="content">
                                 <h2 className="title">{confirmedDeathsRatio.data}</h2>
-                                <p className="info">{confirmedDeathsRatio.text}</p>
+                                <p className="info">Total Deaths Per Confirmed Case</p>
                             </div>
                         </div>
 
@@ -191,7 +195,7 @@ class Charts extends Component {
 
                         <div className="content">
                             <h2 className="title">{renderData[renderData.length - 1]['ConfirmedDeathsRatio']} %</h2>
-                            <p className="info">Confirmed to Death Ratio today</p>
+                            <p className="info">{confirmedDeathsRatio.text}</p>
                         </div>
 
                     </div>

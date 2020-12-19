@@ -13,6 +13,14 @@ class DataFormatter {
         // Directly return the joined string
         return splitStr.join(' ');
     }
+
+    formatDate(unformattedDate){
+        var dateString = unformattedDate;
+        dateString = dateString.split('T')[0];
+        let split = dateString.split('-');
+        dateString = split[2]+"."+split[1]+"."+split[0];
+        return dateString;
+    }
 }
 
 export default DataFormatter;

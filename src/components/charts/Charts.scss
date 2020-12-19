@@ -18,7 +18,7 @@
     justify-content: space-around;
     min-width: $dim_min_width;
     height: 100%;
-    min-height: $dim_min_height;
+    min-height: $dim_min_height_chart;
     border-radius: 25px;
     background-color: $color_box;
     flex: 6;
@@ -68,41 +68,10 @@
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
     width: 80%;
-
-    > .title {
-        padding: 0;
-        margin: 0;
-        font-size: 25px;
-        color: $color_white;
-    }
-
-    > .info {
-        padding: 0;
-        margin: 0;
-        color: $color_light_text;
-    }
 }
 
-.icon{
-    margin-left: 30px;
-    margin-right: 30px;
-}
-
-.icon_up {
-    fill: $color_blue;
-}
-
-.icon_down {
-    fill: $color_pink;
-}
-
-
-@media only screen and (max-width: 700px) {
+@media (max-width: $bp_mobile) {
     .chart-flex-wrapper {
         flex-direction: column;
         width: 100%;
@@ -113,5 +82,14 @@
     .side-charts {
         width: 100%;
         min-width: $dim_min_width;
+    }
+
+    .chart-top-content{
+        flex-direction: column !important;
+        padding-bottom: 20px;
+    }
+    .icon{
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 }
