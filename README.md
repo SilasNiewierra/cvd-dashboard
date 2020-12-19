@@ -9,7 +9,7 @@ This React web app shows you the latest global information about the Covid-19 pa
 In addition, it shows the latest headlines about Covid-19.<br>
 Finally it displays these informations in a visual appealing way to easily understand the data.<br>
 
-Using Googles Firebase Hosting as well as heroku allows for a stable user experience
+Using Googles Firebase Hosting as well as Heroku allows for a stable user experience
 
 ## Test It
 
