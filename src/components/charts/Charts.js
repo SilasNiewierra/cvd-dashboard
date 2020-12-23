@@ -105,7 +105,7 @@ class Charts extends Component {
 
         return (
             <div className="chart-flex-wrapper">
-                <h2 className="mobile-title">{countryName} - Total Statistics</h2>
+                <p className="mobile-title">{countryName} - Total Statistics</p>
                 <div className="main-chart">
                     <h2 className="desktop-title">{countryName} - Total Statistics</h2>
                     <ResponsiveContainer width="90%" height="80%">

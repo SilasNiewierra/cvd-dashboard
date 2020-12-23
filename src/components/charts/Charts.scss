@@ -12,6 +12,11 @@
 
 .mobile-title {
     display: none;
+    width: 100%;
+    font-weight: bold;
+    font-size: 20px;
+    color: $color_light_text;
+    text-align: center;
 }
 
 .desktop-title {
@@ -104,12 +109,11 @@
     .side-charts {
         width: 100%;
         min-width: $dim_min_width;
-        height: $dim_min_height_chart_mobile;
     }
 
     .chart-top-content {
         flex-direction: column !important;
-        padding-bottom: 20px;
+        margin-bottom: 20px;
     }
     .icon {
         margin-top: 20px;
