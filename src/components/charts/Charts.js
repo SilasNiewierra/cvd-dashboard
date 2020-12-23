@@ -16,6 +16,7 @@ import {
 } from 'recharts';
 
 class Charts extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -39,33 +40,31 @@ class Charts extends Component {
                             ConfirmedDeathsRatio: (obj['Deaths'] / obj['Confirmed'] * 100).toFixed(2)
                         }
                     })
+                    console.log(parsedData);
                     this.setState({ chartData: parsedData });
                 }
-                else{
+                else {
                     this.setState({ chartData: null });
                     alert("Unfortunately there are no data available for the selected country. The graphs are filled with dummy data to showcase how this application can look.");
                 }
             });
     }
 
-    componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props):
-        if (this.props.slug !== prevProps.slug) {
-            this.fetchData();
-        }
-      }
+    renderColorfulLegendText(value, entry) {
+        const { color } = entry;
+        return <span style={{ color }}>{value}</span>;
+    }
+
 
     componentDidMount() {
         this.fetchData()
     }
 
-    renderColorfulLegendText(value, entry) {
-        const { color } = entry;
-
-        return <span style={{ color }}>{value}</span>;
+    componentDidUpdate(prevProps) {
+        if (this.props.slug !== prevProps.slug) {
+            this.fetchData();
+        }
     }
-
-
 
     render() {
         const dataFormatter = new DataFormatter();
@@ -73,31 +72,31 @@ class Charts extends Component {
         var countryName = dataFormatter.titleCase(this.props.slug.replaceAll('-', " "));
 
         const placeholderData = [
-            { Date: "2020-12-10", Active: 1, Confirmed: 1, Deaths: 0, Recovered: 0, ConfirmedDeathsRatio: 0},
-            { Date: "2020-12-11", Active: 2, Confirmed: 2, Deaths: 0, Recovered: 0, ConfirmedDeathsRatio: 0},
+            { Date: "2020-12-10", Active: 1, Confirmed: 1, Deaths: 0, Recovered: 0, ConfirmedDeathsRatio: 0 },
+            { Date: "2020-12-11", Active: 2, Confirmed: 2, Deaths: 0, Recovered: 0, ConfirmedDeathsRatio: 0 },
             { Date: "2020-12-12", Active: 6, Confirmed: 10, Deaths: 1, Recovered: 3, ConfirmedDeathsRatio: (1 / 6 * 100).toFixed(2) },
             { Date: "2020-12-13", Active: 3, Confirmed: 10, Deaths: 1, Recovered: 6, ConfirmedDeathsRatio: (1 / 10 * 100).toFixed(2) },
             { Date: "2020-12-14", Active: 5, Confirmed: 15, Deaths: 3, Recovered: 7, ConfirmedDeathsRatio: (3 / 15 * 100).toFixed(2) },
             { Date: "2020-12-15", Active: 4, Confirmed: 20, Deaths: 4, Recovered: 12, ConfirmedDeathsRatio: (4 / 20 * 100).toFixed(2) }];
 
+
         var renderData = this.state.chartData === null ? placeholderData : this.state.chartData;
 
-
+        // Side Chart Info Top
         let previousActiveCases = renderData[renderData.length - 2]['Active'];
         let currentActiveCases = renderData[renderData.length - 1]['Active'];
         let percentageActive = (currentActiveCases - previousActiveCases) / previousActiveCases * 100;
-
         var activeCaseObject = {
             icon: previousActiveCases > currentActiveCases ? <ArrowDownSVG height="40" className="icon icon_down"></ArrowDownSVG> : <ArrowUpSVG height="40" className="icon icon_up"></ArrowUpSVG>,
             data: percentageActive.toFixed(2),
             text: previousActiveCases > currentActiveCases ? "Less Active Cases Then Yesterday" : "More Active Cases Then Yesterday"
         }
 
+        // Side Chart Info Bottom and Top 2
         let previousConfirmedDeathsRatio = renderData[renderData.length - 2]['ConfirmedDeathsRatio'];
         let currentConfirmedDeathsRatio = renderData[renderData.length - 1]['ConfirmedDeathsRatio'];
         let currentDeaths = renderData[renderData.length - 1]['Deaths'];
         let currentConfirmed = renderData[renderData.length - 1]['Confirmed'];
-
         var confirmedDeathsRatio = {
             icon: previousConfirmedDeathsRatio > currentConfirmedDeathsRatio ? <ArrowDownSVG height="40" className="icon icon_down"></ArrowDownSVG> : <ArrowUpSVG height="40" className="icon icon_up"></ArrowUpSVG>,
             data: dataFormatter.numberWithSeperator(currentDeaths) + " / " + dataFormatter.numberWithSeperator(currentConfirmed),
@@ -107,11 +106,10 @@ class Charts extends Component {
 
         return (
             <div className="chart-flex-wrapper">
+                <h2 className="mobile-title">{countryName} - Total Statistics</h2>
                 <div className="main-chart">
-                    <h2>{countryName} - Total Statistics</h2>
+                    <h2 className="desktop-title">{countryName} - Total Statistics</h2>
                     <ResponsiveContainer width="90%" height="80%">
-
-
                         <ComposedChart data={renderData}>
                             <defs>
                                 <linearGradient id="colorGradientConfirmed" x1="0" y1="0" x2="0" y2="1">

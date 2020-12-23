@@ -1,17 +1,18 @@
 @import "../variables";
 
 .App {
-  text-align: center;
-  min-height: 100vh;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: center;
+  min-height: 100vh;
+  text-align: center;
 }
 
 h2 {
-  color: $color_light_text;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  color: $color_light_text;
   overflow:hidden;
   white-space:nowrap;
   text-overflow:ellipsis;
@@ -27,9 +28,9 @@ h2 {
 .title {
   padding: 0;
   margin: 0;
+  font-weight: bold;
   font-size: 25px;
   color: $color_white;
-  font-weight: bold;
 }
 
 .info {

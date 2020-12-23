@@ -11,17 +11,25 @@
     gap: 10px;
 }
 
+.mobile-title{
+    display: none;
+}
+
+.desktop-title{
+    display: block;
+}
+
 .main-chart {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     min-width: $dim_min_width;
-    height: 100%;
-    min-height: $dim_min_height_chart;
+    height: 500px;
     border-radius: 25px;
     background-color: $color_box;
     flex: 6;
+
 }
 
 .side-charts {
@@ -29,7 +37,8 @@
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
-    height: 100%;
+    height: 500px;
+
     flex: 3;
     gap: 10px;
 
@@ -64,6 +73,10 @@
         border-radius: 15px;
         background-color: $color_box;
         flex: 1;
+
+        > .content{
+            align-items: center;
+        }
     }
 }
 
@@ -72,6 +85,14 @@
 }
 
 @media (max-width: $bp_mobile) {
+    .mobile-title{
+        display: block;
+    }
+    
+    .desktop-title{
+        display: none;
+    }
+
     .chart-flex-wrapper {
         flex-direction: column;
         width: 100%;
@@ -87,9 +108,24 @@
     .chart-top-content{
         flex-direction: column !important;
         padding-bottom: 20px;
+
     }
     .icon{
         margin-top: 20px;
         margin-bottom: 20px;
     }
+}
+
+@media (max-width: $bp_tablet) and (min-width: $bp_mobile){
+    .title{
+        font-size: 20px;
+    }
+
+    .chart-top-content{
+        > .content{
+            align-items: center;
+            margin-right: 10px;
+        }
+    }
+
 }
