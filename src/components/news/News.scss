@@ -9,12 +9,15 @@
     min-width: $dim_min_width;
     height: 100%;
     margin-bottom: 20px;
-    gap: 10px;
 }
+
+.news-item:not(:last-child) {
+    margin-bottom: $dim_gap;
+}
+
 
 .news-heading {
     width: 100%;
-    margin-bottom: -5px;
     font-weight: bold;
     font-size: 20px;
     color: $color_light_text;
@@ -96,7 +99,7 @@
     }
 }
 
-@media (max-width: $bp_mobile) {
+@media (max-width: $bp_tablet) {
     .news-heading {
         width: 100%;
         text-align: center;

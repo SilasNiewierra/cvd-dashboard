@@ -8,14 +8,13 @@
     width: 100%;
     min-width: $dim_min_width;
     height: 100%;
-    gap: 10px;
 }
 
-.mobile-title{
+.mobile-title {
     display: none;
 }
 
-.desktop-title{
+.desktop-title {
     display: block;
 }
 
@@ -23,13 +22,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    align-items: stretch;
     justify-content: space-around;
     min-width: $dim_min_width;
-    height: 500px;
+    height: $dim_min_height_chart;
+    margin-right: $dim_gap;
     border-radius: 25px;
     background-color: $color_box;
     flex: 6;
-
+    align-content: stretch;
 }
 
 .side-charts {
@@ -37,10 +38,8 @@
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
-    height: 500px;
-
+    height: $dim_min_height_chart;
     flex: 3;
-    gap: 10px;
 
     > .chart-top {
         display: flex;
@@ -49,6 +48,7 @@
         justify-content: space-around;
         width: 100%;
         min-height: $dim_min_height;
+        margin-bottom: $dim_gap;
         border-radius: 15px;
         background-color: $color_box;
         flex: 2;
@@ -74,7 +74,7 @@
         background-color: $color_box;
         flex: 1;
 
-        > .content{
+        > .content {
             align-items: center;
         }
     }
@@ -85,11 +85,11 @@
 }
 
 @media (max-width: $bp_mobile) {
-    .mobile-title{
+    .mobile-title {
         display: block;
     }
-    
-    .desktop-title{
+
+    .desktop-title {
         display: none;
     }
 
@@ -99,33 +99,35 @@
     }
     .main-chart {
         width: 100%;
+        margin-right: 0px;
+        margin-bottom: $dim_gap;
+        height: $dim_min_height_chart_mobile;
     }
     .side-charts {
         width: 100%;
         min-width: $dim_min_width;
+        height: $dim_min_height_chart_mobile;
     }
 
-    .chart-top-content{
+    .chart-top-content {
         flex-direction: column !important;
         padding-bottom: 20px;
-
     }
-    .icon{
+    .icon {
         margin-top: 20px;
         margin-bottom: 20px;
     }
 }
 
-@media (max-width: $bp_tablet) and (min-width: $bp_mobile){
-    .title{
+@media (max-width: $bp_tablet) and (min-width: $bp_mobile) {
+    .title {
         font-size: 20px;
     }
 
-    .chart-top-content{
-        > .content{
+    .chart-top-content {
+        > .content {
             align-items: center;
             margin-right: 10px;
         }
     }
-
 }

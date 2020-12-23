@@ -18,9 +18,11 @@ $dim_min_width_dialog: 250px;
 $dim_min_height: 200px;
 $dim_min_height_heading: 50px;
 $dim_min_height_top_card: 100px;
-$dim_min_height_chart: 350px;
+$dim_min_height_chart: 500px;
+$dim_min_height_chart_mobile: 300px;
 $dim_gap: 10px;
 
 // breakpoints
+$bp_desktop: 1600px;
 $bp_tablet: 900px;
 $bp_mobile: 750px;

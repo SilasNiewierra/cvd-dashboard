@@ -40,7 +40,6 @@ class Charts extends Component {
                             ConfirmedDeathsRatio: (obj['Deaths'] / obj['Confirmed'] * 100).toFixed(2)
                         }
                     })
-                    console.log(parsedData);
                     this.setState({ chartData: parsedData });
                 }
                 else {

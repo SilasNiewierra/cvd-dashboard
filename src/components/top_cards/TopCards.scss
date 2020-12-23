@@ -7,8 +7,8 @@
     align-items: stretch;
     justify-content: space-between;
     height: 100%;
-    gap: $dim_gap;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .card {
@@ -23,11 +23,24 @@
     width: 100%;
 }
 
-@media (max-width: $bp_mobile) {
+.card:not(:last-child) {
+    margin-right: $dim_gap;
+}
+
+@media (max-width: $bp_tablet) {
     .card-wrapper {
         flex-direction: column;
         align-items: center;
-        margin-bottom: 20px;
     }
 
+    .card:not(:last-child) {
+        margin-right: 0px;
+        margin-bottom: $dim_gap;
+    }
+}
+
+@media (max-width: $bp_desktop) and (min-width: $bp_tablet) {
+    .card {
+        margin: 5px;
+    }
 }
